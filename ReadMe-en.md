@@ -3,7 +3,7 @@
 ## 📖 Introduction:
 - This tool is a modified version based on the original command-line tool [arzedit](https://github.com/rossknudsen/arzedit).
 - This tool is only an auxiliary mod-editing utility. For complete mod creation, it's better to use AssetManager.
-- Please download and use **arzedit-GUI** at [Releases](../releases).
+- Please download and use **arzedit-GUI** at [Releases](./releases).
 - This tool is built with .net8, please follow the prompts after opening and install the .net8 runtime.
 
 ## 🟢 Main Purpose:
