@@ -32,10 +32,10 @@ To provide a GUI interface for more convenient and faster packing and unpacking 
   - Changed NLog to run asynchronously
 
 ## 🐸 Screenshots:
-![Pack ARZ](Pasted%20image%2020250910093734.png)  
-![PackARZ](Pasted%20image%2020250910093749.png)  
-![View arc](Pasted%20image%2020250910094342.png)  
-![View arz](Pasted%20image%2020250910094135.png)
+![Pack ARZ](./screenshot/Pasted%20image%2020250910093734.png)  
+![PackARZ](./screenshot/Pasted%20image%2020250910093749.png)  
+![View arc](./screenshot/Pasted%20image%2020250910094342.png)  
+![View arz](./screenshot/Pasted%20image%2020250910094135.png)
 
 ## 📈 Future Plans:
 - [ ] Asset packing feature (may take a long time; no immediate plans)

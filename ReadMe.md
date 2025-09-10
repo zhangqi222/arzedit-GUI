@@ -32,10 +32,10 @@
 	- 修改Nlog为异步执行
 
 ## 🐸 部分截图：
-![打包ARZ](Pasted%20image%2020250910093734.png)
-![PackARZ](Pasted%20image%2020250910093749.png)
-![查看arc](Pasted%20image%2020250910094342.png)
-![查看arz](Pasted%20image%2020250910094135.png)
+![打包ARZ](./screenshot/Pasted%20image%2020250910093734.png)
+![PackARZ](./screenshot/Pasted%20image%2020250910093749.png)
+![查看arc](./screenshot/Pasted%20image%2020250910094342.png)
+![查看arz](./screenshot/Pasted%20image%2020250910094135.png)
 
 ## 📈 未来计划：
 - [ ] 资产打包功能（可能时间较长，近期无打算）
