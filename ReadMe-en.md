@@ -4,6 +4,7 @@
 - This tool is a modified version based on the original command-line tool [arzedit](https://github.com/rossknudsen/arzedit).
 - This tool is only an auxiliary mod-editing utility. For complete mod creation, it's better to use AssetManager.
 - Please download and use **arzedit-GUI** at [Releases](../releases).
+- This tool is built with .net8, please follow the prompts after opening and install the .net8 runtime.
 
 ## 🟢 Main Purpose:
 To provide a GUI interface for more convenient and faster packing and unpacking operations.
@@ -11,7 +12,7 @@ To provide a GUI interface for more convenient and faster packing and unpacking 
 - Easy to use for people unfamiliar with command-line operations.
 - Accessible for beginners who don't know how to use AssetManager.
 - Convenient for simple mod modifications.
-- This tool is built with .net8, please follow the prompts after opening and install the .net8 runtime.
+
 
 ### 📑 Added and Modified Features:
 - arz
