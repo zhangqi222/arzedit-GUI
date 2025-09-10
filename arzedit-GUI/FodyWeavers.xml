@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Weavers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="FodyWeavers.xsd">
+  <Costura DisableCleanup="false" IncludeRuntimeReferences="true" DisableCompression="false">
+    <!-- 配置Costura以嵌入所有依赖的DLL -->
+    <!-- 确保包含运行时引用 -->
+  </Costura>
+</Weavers>

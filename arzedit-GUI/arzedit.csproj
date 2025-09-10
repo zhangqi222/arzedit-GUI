@@ -1,0 +1,98 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- 让单文件 EXE 包含原生资源 -->
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>arzedit-GUI</AssemblyName>
+    <!-- 产品名称 -->
+    <Product>arzedit-GUI</Product>
+    <!-- 文件说明 -->
+    <AssemblyTitle>arzedit-GUI</AssemblyTitle>
+    <ApplicationDescription>grim dawn pack tools</ApplicationDescription>
+    <UseWindowsForms>true</UseWindowsForms>
+    <!-- 解决NETSDK1152错误 - 允许重复的发布输出文件 -->
+    <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+    <!-- 单文件发布配置 - 应用于所有配置 -->
+    <PublishSingleFile>true</PublishSingleFile>
+    <!-- 依赖电脑环境库,不包含.NET8运行时 -->
+    <SelfContained>false</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <PublishTrimmed>false</PublishTrimmed>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <!-- 确保Costura正确嵌入依赖 -->
+    <CosturaCleanupAfterEmbed>true</CosturaCleanupAfterEmbed>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+    <StartupObject>arzedit.Program</StartupObject>
+    <SolutionDir Condition="'$(SolutionDir)' == ''">$(MSBuildProjectDirectory)\..\</SolutionDir>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <ManifestCertificateThumbprint>E173F7F679F4B98A4588D00B07267671BC0B8F97</ManifestCertificateThumbprint>
+    <ManifestKeyFile>arzedit_TemporaryKey.pfx</ManifestKeyFile>
+    <GenerateManifests>true</GenerateManifests>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="languages\en-US.json" />
+    <EmbeddedResource Include="languages\zh-CN.json" />
+    <EmbeddedResource Include="templates.arc" />
+    <EmbeddedResource Include="!ChangeLog.rtf" />
+    <EmbeddedResource Include="!HowToUse.rtf" />
+    <PackageReference Include="CommandLineParser" Version="2.9.1" />
+    <!-- 更新Costura.Fody到与.NET 8.0兼容的版本 -->
+    <PackageReference Include="Costura.Fody" Version="5.7.0" PrivateAssets="All" />
+    <!-- <PackageReference Include="K4os.Compression.LZ4.Streams" Version="1.3.8" /> -->
+    <!-- 添加Legacy包以兼容旧版lz4net格式 -->
+    <PackageReference Include="K4os.Compression.LZ4" Version="1.3.8" />
+    <!-- 移除旧的Fody版本，使用Costura.Fody内置的Fody -->
+    <!-- 使用K4os.Compression.LZ4替换旧的lz4net，使用LZ4Stream进行压缩和解压缩 -->
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="NLog" Version="6.0.3" />
+    <PackageReference Include="NLog.Config" Version="4.4.9" />
+    <PackageReference Include="NLog.Schema" Version="4.4.9" />
+    <!-- 已移除未使用的System.Data.DataSetExtensions引用 -->
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="8.0.0" />
+  </ItemGroup>
+  <PropertyGroup>
+    <NoWarn>$(NoWarn);CA1416</NoWarn>
+  </PropertyGroup>
+    <!-- 特定于发布配置的属性 -->
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>false</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <PublishTrimmed>false</PublishTrimmed>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>false</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <PublishTrimmed>false</PublishTrimmed>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="app.ico" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,113 @@
+{
+  "MainForm.HowToUseLabel":"HowToUse",
+  "MainForm.AuthorLabel":"Author: laozhangggg",
+  "MainForm.Title": "arzedit GUI Tool",
+  "UnpackArcTab.Title": "Unpack ARC",
+  "UnpackArcTab.ExecuteButton": "Unpack ARC",
+  "PackArcTab.Title": "Pack ARC",
+  "PackArcTab.ExecuteButton": "Pack ARC",
+  "UnpackArzTab.Title": "Unpack ARZ",
+  "UnpackArzTab.ExecuteButton": "Unpack ARZ",
+  "PackArzTab.Title": "Pack ARZ",
+  "PackArzTab.TemplateInfoLabel": "Template Info: 837 templates included, game templates and most mod templates, provided by tt300. Version 2025-7-8.\nPriority: Custom template (high) > mod template (medium) > built-in template (low)",
+  "PackArzTab.InputDirPathGroup": "Input mod directory : Usually [Grim Dawn/mods/modName], will auto load *.tpl files.",
+  "PackArzTab.GameDirPathGroup": "(Not used) ",
+  "PackArzTab.TemplateDirPathGroup": "Other template directory [optional]: if with the same name as the above, this will be used.",
+  "PackArzTab.ExecuteButton": "Pack ARZ",
+  "PackArzTab.DatabaseSubDirsLabel":"Select subdir to package：",
+  "Common.InputFilePathGroup": "Input File",
+  "Common.InputDirPathGroup": "Input Directory",
+  "Common.BrowseButton": "Browse",
+  "Common.ViewButton": "View",
+
+  "Common.OutputDirPathGroup": "Output Directory",
+  "Common.OutputFilePathGroup": "Output File",
+  "Common.BrowseFolderDescription": "Select Folder",
+  "Common.StatusLabel": "Ready",
+  "Common.FileList": "File List",
+  "Common.OkButton": "OK",
+  "Common.MessageArcFileNotFound": "ARC file not found, please check",
+  "Common.MessageArzFileNotFound": "ARZ file not found, please check",
+  "Common.MessageFileNotFoundrecord": "No entries found in the file",
+  "Common.MessageArzFileStructureTitle": "ARZ File Structure",
+  "Common.MessageBoxReadFail": "Failed to read file",
+  "Common.MessageFileNotFound": "File not found, please check",
+  "Common.MessageBoxNoSelectUnPackfile": "Please select a file to unpack",
+  "Common.MessageBoxUnPackSuccess": "Unpacking completed!",
+  "Common.MessageBoxUnPackFail": "Unpacking failed, please check the log",
+  "Common.MessageBoxProcessError": "An error occurred during the operation: ",
+  "Common.MessageBoxNoSelectPackDir": "Please select a directory to pack",
+  "Common.MessageBoxNoSelectGameDir": "Please select game directory",
+  "Common.MessageBoxGameDirError": "The selected game directory is incorrect, not the GD root directory",
+  "Common.MessageBoxModDirNotFound": "The selected mod directory does not exist",
+  "Common.MessageBoxDirNotFound": "The selected directory does not exist",
+  "Common.MessageBoxPackSuccess": "Packing completed!",
+  "Common.MessageBoxPackFail": "Packing failed, please check the log",
+  "Common.StatusLabel.Parsing": "Parsing...",
+  "Common.MessageBoxTitle.Info": "Info",
+  "Common.MessageBoxTitle.Warning": "Warning",
+  "Common.MessageBoxTitle.Error": "Error",
+  "Common.MessageBoxTitle.Question": "Confirm",
+  "Common.MessageBoxTitle.Information": "Information",
+  "Common.SearchLabel": "Search:",
+  "LOG.StartPacking": "Start packing",
+  "LOG.StartUnpacking": "Start unpacking",
+  "LOG.ErrorWhileParsingRecords":"Error while parsing records",
+  "LOG.ErrorTemplateNotFound":"Error while parsing records, template not found:",
+
+  "LOG.InputFileNotFound":"Input File Not Found",
+  "LOG.InputDirectoryNotFound":"Input directory not found",
+  "LOG.Packing": "Packing",
+  "LOG.ParsingTemplates":"Parsing templates",
+  "LOG.Unpacking":"Unpacking",
+  "LOG.UnpackingCompleteUseTime":"Unpacking complete, time used",
+  "LOG.UnpackingFailedUseTime":"Unpacking failed, time used",
+  "LOG.PackingCompleteUseTime":"Packing complete, time used",
+  "LOG.PackingFailedUseTime":"Packing failed, time used",
+  "LOG.SkipFile":"Skip file:",
+  "LOG.FileExceptionSkip":"File exception, skip:",
+  "LOG.SkippedFileCount":"Skipped file count:",
+  "LOG.FilesDueToError":"files due to error",
+  "LOG.EmptyFileName":"Empty file name, skip",
+  "LOG.AddingFilesFromDir":"Adding files from directory",
+  "LOG.Files":"files",
+
+  "LOG.ModPathNotExist":"Mod path not exist",
+  "LOG.GamePathNotRight":"Game path not right",
+  "LOG.BuildError":"Build error",
+  "LOG.ScanningFiles":"Scanning files",
+  "LOG.FoundFilesAndPack":"Files has been found, start packing...",
+
+
+
+
+
+
+  "LOG.CannotFindFolder":"Cannot find folder",
+
+
+  "LOG.PossiblyWrongTemplateBaseFolder":"Possibly wrong template base folder",
+  "LOG.UseTemplate":"Same name template found, use template: ",
+  "LOG.TemplateParseError":"Template parsing error, will skip:",
+  "LOG.VanillaTemplateCount":"Vanilla templates: {0}",
+  "LOG.BuiltInTemplateCount":"Built-in templates:",
+  "LOG.ModTemplateCount":"mod template count:",
+  "LOG.CustomTemplateCount":"Custom template count:",
+  "LOG.NoFilesToPack":"No files to pack",
+  "LOG.MessageBoxNoDirSelected":"No subdirectory selected",
+  "LOG.PackingDatabaseStart":"Packing database start ... ",
+  "LOG.ErrorPackingFile":"Error during packing:",
+  "LOG.SavingDatabase":"Saving database ... ",
+  "ErrorSavingDatabase":"Failed to save database",
+  "LOG.ReferenceTemplateNotFound":"File references external file but not found: "
+
+
+
+
+
+
+
+
+
+
+}
