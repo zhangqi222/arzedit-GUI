@@ -2,8 +2,9 @@
 
 ## 📖 简介：
 - 本工具是在原命令行工具 [arzedit](https://github.com/rossknudsen/arzedit) 的基础上修改而来。
-- 本工具只是辅助修改mod工具，想完整制作mod还是使用AssetManager较好
+- 本工具只是辅助修改mod工具，想完整制作mod还是使用AssetManager较好。
 - 请在[Releases](../releases)处进行下载使用**arzedit-GUI**。
+- 本工具使用.net8构建，请根据打开后的提示，安装.net8运行时。
 
 ## 🟢 主要目的：
 是通过添加GUI界面，更便捷快速的操作打包和解包工作。

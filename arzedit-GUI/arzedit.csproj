@@ -4,11 +4,11 @@
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
     <TargetFramework>net8.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <AssemblyName>arzedit-GUI</AssemblyName>
+    <AssemblyName>arzedit-GUI v1.0</AssemblyName>
     <!-- 产品名称 -->
-    <Product>arzedit-GUI</Product>
+    <Product>arzedit-GUI v1.0</Product>
     <!-- 文件说明 -->
-    <AssemblyTitle>arzedit-GUI</AssemblyTitle>
+    <AssemblyTitle>arzedit-GUI v1.0</AssemblyTitle>
     <ApplicationDescription>grim dawn pack tools</ApplicationDescription>
     <UseWindowsForms>true</UseWindowsForms>
     <!-- 解决NETSDK1152错误 - 允许重复的发布输出文件 -->

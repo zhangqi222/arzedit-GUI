@@ -11,6 +11,7 @@ To provide a GUI interface for more convenient and faster packing and unpacking 
 - Easy to use for people unfamiliar with command-line operations.
 - Accessible for beginners who don't know how to use AssetManager.
 - Convenient for simple mod modifications.
+- This tool is built with .net8, please follow the prompts after opening and install the .net8 runtime.
 
 ### 📑 Added and Modified Features:
 - arz
