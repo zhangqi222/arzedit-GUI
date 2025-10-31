@@ -23,7 +23,7 @@ namespace arzedit
         
 
         public const string VERSION = "0.2b5.2";
-        public const string GUI_VERSION = "GUI_v1.0";
+        public const string GUI_VERSION = "GUI_v1.1";
         static byte[] footer = new byte[16];
         public static Logger Log = LogManager.GetCurrentClassLogger();
         public static List<string> strtable = null;

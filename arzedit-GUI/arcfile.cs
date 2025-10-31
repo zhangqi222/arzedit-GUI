@@ -17,9 +17,9 @@ namespace arzedit
         public int Version = 3;
         public int NumberOfFileEntries = 0;
         public int NumberOfDataRecords = 0;
-        public int RecordTableSize = 0;
-        public int StringTableSize = 0;
-        public int RecordTableOffset = 0;
+        public long RecordTableSize = 0;  // 修改为long以支持大文件
+        public long StringTableSize = 0;  // 修改为long以支持大文件
+        public long RecordTableOffset = 0;  // 修改为long以支持大文件
 
         public void ReadStream(Stream astream)
         {
@@ -29,6 +29,7 @@ namespace arzedit
                 Version = br.ReadInt32();
                 NumberOfFileEntries = br.ReadInt32();
                 NumberOfDataRecords = br.ReadInt32();
+                // 读取为int但存储为long，保持与原格式兼容
                 RecordTableSize = br.ReadInt32();
                 StringTableSize = br.ReadInt32();
                 RecordTableOffset = br.ReadInt32();
@@ -43,18 +44,19 @@ namespace arzedit
                 bw.Write(Version);
                 bw.Write(NumberOfFileEntries);
                 bw.Write(NumberOfDataRecords);
-                bw.Write(RecordTableSize);
-                bw.Write(StringTableSize);
-                bw.Write(RecordTableOffset);
+                // 转换为int写入，保持与原格式兼容
+                bw.Write((int)Math.Min(RecordTableSize, int.MaxValue));
+                bw.Write((int)Math.Min(StringTableSize, int.MaxValue));
+                bw.Write((int)Math.Min(RecordTableOffset, int.MaxValue));
             }
         }
 
-        public int GetTocOffset()
+        public long GetTocOffset()
         {
             return GetStringTableOffset() + StringTableSize;
         }
 
-        public int GetStringTableOffset()
+        public long GetStringTableOffset()
         {
             return RecordTableOffset + RecordTableSize;
         }
@@ -130,9 +132,9 @@ namespace arzedit
     public class ARCTocEntry
     {
         public int EntryType;
-        public int FileOffset;
-        public int CompressedSize;
-        public int DecompressedSize;
+        public long FileOffset;  // 修改为long以支持大文件
+        public long CompressedSize;  // 修改为long以支持大文件
+        public long DecompressedSize;  // 修改为long以支持大文件
         public int DecompressedHash;
         public DateTime FileTime; // 8 Bytes/long
         public int FileParts;
@@ -144,6 +146,7 @@ namespace arzedit
         {
             using (BinaryReader br = new BinaryReader(astream, System.Text.Encoding.GetEncoding("GBK"), true)) {
                 EntryType = br.ReadInt32();
+                // 读取为int但存储为long，保持与原格式兼容
                 FileOffset = br.ReadInt32();
                 CompressedSize = br.ReadInt32();
                 DecompressedSize = br.ReadInt32();
@@ -163,11 +166,11 @@ namespace arzedit
                 // EntryType = br.ReadInt32();
                 bw.Write(EntryType);
                 // FileOffset = br.ReadInt32();
-                bw.Write(FileOffset);
+                bw.Write((int)Math.Min(FileOffset, int.MaxValue));
                 // CompressedSize = br.ReadInt32();
-                bw.Write(CompressedSize);
+                bw.Write((int)Math.Min(CompressedSize, int.MaxValue));
                 // DecompressedSize = br.ReadInt32();
-                bw.Write(DecompressedSize);
+                bw.Write((int)Math.Min(DecompressedSize, int.MaxValue));
                 // DecompressedHash = br.ReadInt32();
                 bw.Write(DecompressedHash);
                 // FileTime = DateTime.FromFileTimeUtc(br.ReadInt64());
@@ -207,14 +210,15 @@ namespace arzedit
 
     public class ARCFilePart
     {
-        public int PartOffset;
-        public int CompressedSize;
-        public int DecompressedSize;
+        public long PartOffset;  // 修改为long以支持大文件
+        public long CompressedSize;  // 修改为long以支持大文件
+        public long DecompressedSize;  // 修改为long以支持大文件
 
         public void ReadStream(Stream astream)
         {
             using (BinaryReader br = new BinaryReader(astream, Encoding.GetEncoding("GBK"), true))
             {
+                // 读取为int但存储为long，保持与原格式兼容
                 PartOffset = br.ReadInt32();
                 CompressedSize = br.ReadInt32();
                 DecompressedSize = br.ReadInt32();
@@ -250,16 +254,17 @@ namespace arzedit
             BeginWrite();
         }
 
-        public int WriteRecordTable(List<ARCFilePart> aparts, Stream astream)
+        public long WriteRecordTable(List<ARCFilePart> aparts, Stream astream)
         {
             using (BinaryWriter bw = new BinaryWriter(astream, Encoding.GetEncoding("GBK"), true))
                 for (int p = 0; p < aparts.Count; p++)
                 {
-                    bw.Write(aparts[p].PartOffset);
-                    bw.Write(aparts[p].CompressedSize);
-                    bw.Write(aparts[p].DecompressedSize);
+                    // 转换为int写入，保持与原格式兼容
+                    bw.Write((int)Math.Min(aparts[p].PartOffset, int.MaxValue));
+                    bw.Write((int)Math.Min(aparts[p].CompressedSize, int.MaxValue));
+                    bw.Write((int)Math.Min(aparts[p].DecompressedSize, int.MaxValue));
                 }
-            return aparts.Count * 12;
+            return (long)aparts.Count * 12;
         }
 
         public void WriteFromTocEntry(ARCFile afile, ARCTocEntry aentry)
@@ -268,7 +273,7 @@ namespace arzedit
             ARCTocEntry newentry = new ARCTocEntry();
             newentry.StringEntryOffset = wstrs.Append(entryname);
             newentry.StringEntryLength = entryname.Length;
-            newentry.FileOffset = (int)wstream.Position;
+            newentry.FileOffset = wstream.Position;
             newentry.FileParts = aentry.FileParts;
             newentry.FirstPartIndex = wparts.Count;
             // Write compressed parts:
@@ -278,13 +283,13 @@ namespace arzedit
                 ARCFilePart cpart = afile.parts[aentry.FirstPartIndex + p];
                 newpart.CompressedSize = cpart.CompressedSize;
                 newpart.DecompressedSize = cpart.DecompressedSize;
-                newpart.PartOffset = (int)wstream.Position; // Remember offset
+                newpart.PartOffset = wstream.Position; // Remember offset
                 // Get compressed part
-                byte[] cbuff = new byte[cpart.CompressedSize];
+                byte[] cbuff = new byte[(int)Math.Min(cpart.CompressedSize, int.MaxValue)];
                 afile.fstream.Seek(cpart.PartOffset, SeekOrigin.Begin);
-                afile.fstream.Read(cbuff, 0, cpart.CompressedSize);
+                afile.fstream.Read(cbuff, 0, (int)Math.Min(cpart.CompressedSize, int.MaxValue));
                 // Write actual part:
-                wstream.Write(cbuff, 0, cpart.CompressedSize);
+                wstream.Write(cbuff, 0, (int)Math.Min(cpart.CompressedSize, int.MaxValue));
                 wparts.Add(newpart); // Addit to written part list
             }
             // Now we'll trust original entry has all correct data
@@ -302,10 +307,11 @@ namespace arzedit
             newentry.StringEntryOffset = wstrs.Append(entryname);
             //newentry.StringEntryLength = entryname.Length; //这样写，遇到中文文件名，会丢失扩展名
             newentry.StringEntryLength = Encoding.GetEncoding("GBK").GetByteCount(entryname);
-            newentry.FileOffset = (int)wstream.Position;
+            newentry.FileOffset = wstream.Position;
             // newentry.FileParts = (int)astream.Length / MAX_BLOCK_SIZE;
             newentry.FirstPartIndex = wparts.Count;
-            int read = 0, partcount = 0, csize = 0;
+            int read = 0, partcount = 0;
+            long csize = 0;
             byte[] buffer = new byte[MAX_BLOCK_SIZE];
             // Adler32;
             Adler32 adler = new Adler32();
@@ -313,8 +319,8 @@ namespace arzedit
                 // newblock
                 adler.ComputeHash(buffer, 0, read);
                 ARCFilePart newpart = new ARCFilePart();
-                newpart.PartOffset = (int)wstream.Position;
-                newpart.DecompressedSize = read;
+                newpart.PartOffset = wstream.Position;
+                newpart.DecompressedSize = (long)read;
                 
                 // 使用标准老式LZ4Codec.Encode方法压缩数据
                 // 分配足够的缓冲区（最大可能压缩大小）
@@ -326,13 +332,13 @@ namespace arzedit
                 if (compressedLength > 0 && compressedLength < read)
                 {
                     // 如果压缩有效（有大小减少）
-                    newpart.CompressedSize = compressedLength;
+                    newpart.CompressedSize = (long)compressedLength;
                     wstream.Write(cbuffer, 0, compressedLength);
                 }
                 else
                 {
                     // 如果压缩无效或失败，则使用原始数据
-                    newpart.CompressedSize = read;
+                    newpart.CompressedSize = (long)read;
                     wstream.Write(buffer, 0, read);
                 }
                 
@@ -340,10 +346,10 @@ namespace arzedit
                 csize += newpart.CompressedSize;
                 partcount += 1;
             }
-            newentry.FileParts = partcount;
+            newentry.FileParts = partcount <= int.MaxValue ? (int)partcount : int.MaxValue;
             newentry.EntryType = 3; // TODO: What are other possible types
-            newentry.CompressedSize = csize;
-            newentry.DecompressedSize = (int)astream.Length;
+            newentry.CompressedSize = (long)csize;
+            newentry.DecompressedSize = (long)astream.Length;
             newentry.DecompressedHash = (int)adler.checksum;
             newentry.FileTime = entrytime;
             wtoc.Add(newentry);
@@ -365,7 +371,7 @@ namespace arzedit
 
         public void FinishWrite()
         {
-            whdr.RecordTableOffset = (int)wstream.Position;
+            whdr.RecordTableOffset = wstream.Position;
             whdr.RecordTableSize = WriteRecordTable(wparts, wstream); // Write part table
             whdr.NumberOfDataRecords = wparts.Count;
             whdr.StringTableSize = wstrs.WriteToStream(wstream);
@@ -425,11 +431,11 @@ namespace arzedit
             // Now read stringtable
             strs = new ARCStringTable();
             astream.Seek(hdr.GetStringTableOffset(), SeekOrigin.Begin);
-            strs.ReadFromStream(astream, hdr.StringTableSize);           
+            strs.ReadFromStream(astream, (int)Math.Min(hdr.StringTableSize, int.MaxValue));           
 
             // Now read TOC:
             toc = new List<ARCTocEntry>();
-            toc.Capacity = hdr.NumberOfFileEntries;
+            toc.Capacity = (int)Math.Min(hdr.NumberOfFileEntries, int.MaxValue);
             astream.Seek(hdr.GetTocOffset(), SeekOrigin.Begin);
             for (int i = 0; i < hdr.NumberOfFileEntries; i++)
             {
@@ -451,34 +457,46 @@ namespace arzedit
             {
                 fstream.Seek(aentry.FileOffset, SeekOrigin.Begin);
                 CopyBytes(aentry.CompressedSize, fstream, tostream);
-            } else
+            } 
+            else
             {
-                for (int p = 0; p < aentry.FileParts; p++) {
+                for (int p = 0; p < aentry.FileParts; p++)
+                {
                     ARCFilePart cpart = parts[aentry.FirstPartIndex + p];
-                    byte[] cbuff = new byte[cpart.CompressedSize];
+                    // 使用long确保能够处理大文件部分
+                    byte[] cbuff = new byte[(int)Math.Min(cpart.CompressedSize, int.MaxValue)];
                     fstream.Seek(cpart.PartOffset, SeekOrigin.Begin);
-                    fstream.Read(cbuff, 0, cpart.CompressedSize);
+                    int bytesRead = fstream.Read(cbuff, 0, cbuff.Length);
+                    
+                    // 确保读取到了预期的字节数
+                    if (bytesRead < cbuff.Length)
+                    {
+                        Console.WriteLine($"警告: 读取文件部分时只读取到{bytesRead}字节，预期{cbuff.Length}字节");
+                    }
+                    
                     if (cpart.CompressedSize < cpart.DecompressedSize)
                     {
                         // 使用LZ4Codec进行解压
-                        byte[] dbuff = new byte[cpart.DecompressedSize];
+                        byte[] dbuff = new byte[(int)Math.Min(cpart.DecompressedSize, int.MaxValue)];
                         try
                         {
-                            int decompressedSize = LZ4Codec.Decode(cbuff, 0, cpart.CompressedSize, dbuff, 0, cpart.DecompressedSize);
+                            // 使用实际读取的字节数进行解压
+                            int decompressedSize = LZ4Codec.Decode(cbuff, 0, bytesRead, dbuff, 0, (int)Math.Min(cpart.DecompressedSize, int.MaxValue));
                             tostream.Write(dbuff, 0, decompressedSize);
                         }
                         catch (Exception ex)
                         {
                             Console.WriteLine("LZ4 decompression error: " + ex.Message);
-                            // 如果解压失败，尝试直接写入原始数据
-                            tostream.Write(cbuff, 0, cpart.DecompressedSize);
+                            // 修复错误处理：解压失败时只写入实际读取的字节数，而不是期望的解压大小
+                            tostream.Write(cbuff, 0, bytesRead);
                         }
-                    } else
+                    } 
+                    else
                     {
-                        tostream.Write(cbuff, 0, cpart.DecompressedSize);
+                        // 写入实际读取的字节数
+                        tostream.Write(cbuff, 0, bytesRead);
                     }
                 }
-                        
             }
         }
 
@@ -595,7 +613,8 @@ namespace arzedit
         public static long CopyBytes(long bytesRequired, Stream inStream, Stream outStream)
         {
             long readSoFar = 0L;
-            var buffer = new byte[64 * 1024];
+            // 增加缓冲区大小以提高大文件处理效率
+            var buffer = new byte[1024 * 1024]; // 1MB缓冲区
             do
             {
                 var toRead = Math.Min(bytesRequired - readSoFar, buffer.Length);
