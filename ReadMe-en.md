@@ -43,4 +43,4 @@ To provide a GUI interface for more convenient and faster packing and unpacking 
 - [ ] Asset packing feature (may take a long time; no immediate plans)
 
 ## 🐛 Known BUGs
-- Error in size when unpacking map arc
+- Error in size when unpacking map arc(v1.1 fix)
