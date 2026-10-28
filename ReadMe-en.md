@@ -1,5 +1,7 @@
 🌏 [Chinese](./ReadMe.md) / English
 
+# This project has been replaced by [GDPackEditor](https://github.com/zhangqi222/GDPackEditor), More powerful.
+
 ## 📖 Introduction:
 - This tool is a modified version based on the original command-line tool [arzedit](https://github.com/rossknudsen/arzedit).
 - This tool is only an auxiliary mod-editing utility. For complete mod creation, it's better to use AssetManager.
