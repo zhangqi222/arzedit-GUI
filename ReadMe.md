@@ -1,5 +1,9 @@
 🌏 中文 / [english](./ReadMe-en.md)
 
+
+# 本项目已由[GDPackEditor](https://github.com/zhangqi222/GDPackEditor)取代，功能更强。
+
+
 ## 📖 简介：
 - 本工具是在原命令行工具 [arzedit](https://github.com/rossknudsen/arzedit) 的基础上修改而来。
 - 本工具只是辅助修改mod工具，想完整制作mod还是使用AssetManager较好。
